@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>При наведениии на сссылку появляется текст, который постепенно увеличивается и меняет цвет,а на его месте появляется другой.</title>
+<script language="JavaScript" type="text/javascript">
+// the number of rings
+var ringnumber=4
+
+// do not edit the code below
+var x,y
+var timer
+var i_fontsize=new Array
+var step=new Array
+ringnumber=ringnumber-1
+var maxfontsize=600
+var startfontsize=1
+
+for (i=0;i<=ringnumber;i++) {
+ i_fontsize[i]=startfontsize
+ step[i]=ringnumber*i*10
+ startfontsize=(maxfontsize/ringnumber)*(i+1)
+}
+
+function cursorposition(e){
+ x=event.clientX+document.body.scrollLeft
+ y=event.clientY+document.body.scrollTop
+}
+
+function showrings() {
+if (document.all) {
+ for (i=0;i<=ringnumber;i++) {
+  if (i_fontsize[i]>=maxfontsize) {i_fontsize[i]=1;step[i]=1}
+  var thisring=eval("document.all.ring"+i+".style")
+  thisring.visibility="visible"
+  thisring.fontSize=i_fontsize[i]
+  thisring.color="rgb("+Math.floor(i_fontsize[i]/2.0)+","+Math.floor(i_fontsize[i]/2.0)+",255)"
+     thisring.posLeft=x-(Math.floor(i_fontsize[i]/3))
+  thisring.posTop=y-(Math.floor(i_fontsize[i]/1.4)) 
+  step[i]+=2
+  i_fontsize[i]+=step[i]
+ }
+ timer=setTimeout("showrings()",50)
+}
+}
+
+function hiderings(e){
+if (document.all) {
+ clearTimeout(timer)
+ startfontsize=0
+ for (i=0;i<=ringnumber;i++) {
+  thisring=eval("document.all.ring"+i+".style")
+  thisring.visibility="hidden"
+  i_fontsize[i]=startfontsize
+  step[i]=ringnumber*i*10
+  startfontsize=Math.floor((maxfontsize/ringnumber))*(i+1)
+ }
+}
+}
+
+if (document.all) {
+ document.onmousemove=cursorposition;
+}
+
+if (document.all) {
+ for (i=0;i<=ringnumber;i++) {
+ document.write("<DIV id='ring"+i+"' style='position:absolute;font-family:Verdana;'>°</DIV>")
+ }
+ document.write("<DIV style='position:relative;'>")
+}
+</script>
+</head>
+<body>
+<a href="http://scriptic.narod.ru" onMouseOver="showrings()" onMouseOut="hiderings()">Scriptic.narod.ru</a>
+</body>
+</html>

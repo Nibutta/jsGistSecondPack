@@ -1,0 +1,29 @@
+<html>
+<head>
+<script type="text/javascript">
+var txt="";
+function message()
+{
+try
+  {
+  adddlert("Добро пожаловать гость!");
+  }
+catch(err)
+  {
+  txt="На этой странице произошла оишбка.\n\n";
+  txt+="Нажмите OK, чтобы продолжить просмотр этой страницы,\n";
+  txt+="или Отмена, чтобы вернуться на главную страницу.\n\n";
+  if(!confirm(txt))
+    {
+    document.location.href="http://uroki-javascript.ru/";
+    }
+  }
+}
+</script>
+</head>
+
+<body>
+<input type="button" value="Просмотр сообщения" onclick="message()" />
+</body>
+
+</html>
